@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.31605.320
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FrameOS", "FrameOS\FrameOS.csproj", "{0042381D-05C1-493B-866A-A028AEE55296}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{0042381D-05C1-493B-866A-A028AEE55296}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0042381D-05C1-493B-866A-A028AEE55296}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0042381D-05C1-493B-866A-A028AEE55296}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0042381D-05C1-493B-866A-A028AEE55296}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {F2E0ECE3-C9BD-4DD5-A184-FCD633FE2B2C}
+	EndGlobalSection
+EndGlobal
