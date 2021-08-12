@@ -3,7 +3,8 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 using FrameOS.FileSystem;
-using Cosmos.System.FileSystem.Listing;
+using sys = Cosmos.System;
+using Cosmos.HAL;
 
 namespace FrameOS.Commands
 {
@@ -13,13 +14,19 @@ namespace FrameOS.Commands
         {
             if (commandArgs.Length != 1)
             {
-                Console.WriteLine("Invalid Paramaters");
+                Terminal.WriteLine("Invalid Paramaters");
                 return;
             }
 
             string drive = commandArgs[0].String;
 
+            Terminal.WriteLine("Formating drive " + drive);
+
             Filesystem.Format(drive);
+
+            Terminal.WriteLine("Rebooting the system");
+
+            sys.Power.Reboot();
         }
     }
 }

@@ -7,17 +7,18 @@ using Cosmos.HAL;
 
 namespace FrameOS.Commands
 {
-    class MKDirCommand : ICommand
+    class RmCommand : ICommand
     {
         public void Run(CommandArg[] commandArgs)
         {
-            if (commandArgs.Length != 1)
+            if(commandArgs.Length != 1)
             {
                 Terminal.WriteLine("Invalid Paramaters");
                 return;
             }
 
-            Filesystem.CreateFolder(commandArgs[0].String);
+            Filesystem.RemoveFile(commandArgs[0].String);
+            Terminal.WriteLine("The file " + commandArgs[0].String + " has been deleted");
         }
     }
 }

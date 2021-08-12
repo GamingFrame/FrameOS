@@ -2,22 +2,23 @@
 using System;
 using System.Collections.Generic;
 using System.Text;
-using FrameOS.FileSystem;
+using FrameOS.Systems.Networking;
 using Cosmos.HAL;
 
 namespace FrameOS.Commands
 {
-    class MKDirCommand : ICommand
+    class PingCommand : ICommand
     {
         public void Run(CommandArg[] commandArgs)
         {
             if (commandArgs.Length != 1)
             {
-                Terminal.WriteLine("Invalid Paramaters");
+                Terminal.WriteLine("Invaild synax. Usage: ping <ip address or site>"); // I like this message, imma change this everywhere
                 return;
             }
 
-            Filesystem.CreateFolder(commandArgs[0].String);
+            NetworkSystem.Ping(commandArgs[0].String);
+
         }
     }
 }

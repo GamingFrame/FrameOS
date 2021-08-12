@@ -7,17 +7,17 @@ using Cosmos.HAL;
 
 namespace FrameOS.Commands
 {
-    class MKDirCommand : ICommand
+    class TouchCommand : ICommand
     {
         public void Run(CommandArg[] commandArgs)
         {
-            if (commandArgs.Length != 1)
+            if(commandArgs.Length != 1)
             {
                 Terminal.WriteLine("Invalid Paramaters");
                 return;
             }
 
-            Filesystem.CreateFolder(commandArgs[0].String);
+            Filesystem.CreateFile(commandArgs[0].String);
         }
     }
 }

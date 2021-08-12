@@ -1,4 +1,5 @@
-﻿using FrameOS.Systems.CommandSystem;
+﻿using Cosmos.HAL;
+using FrameOS.Systems.CommandSystem;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -13,7 +14,7 @@ namespace FrameOS.Commands
 
             foreach (var item in commands)
             {
-                Console.WriteLine(item.Key + " - Add description WIP");
+                Terminal.WriteLine(item.Key + " - Add description WIP");
             }
         }
     }

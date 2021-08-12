@@ -1,4 +1,5 @@
-﻿using FrameOS.Systems.CommandSystem;
+﻿using Cosmos.HAL;
+using FrameOS.Systems.CommandSystem;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -9,7 +10,7 @@ namespace FrameOS.Commands
     {
         public void Run(CommandArg[] commandArgs)
         {
-            Console.WriteLine("Name: " + UserSystem.UserProfileSystem.CurrentUser);
+            Terminal.WriteLine("Name: " + UserSystem.UserProfileSystem.CurrentUser);
             string permLevel = "";
 
             switch (UserSystem.UserProfileSystem.CurrentPermLevel)
@@ -28,7 +29,7 @@ namespace FrameOS.Commands
                     break;
             }
 
-            Console.WriteLine("Permmision Level: " + permLevel);
+            Terminal.WriteLine("Permmision Level: " + permLevel);
         }
     }
 }

@@ -7,17 +7,24 @@ using Cosmos.HAL;
 
 namespace FrameOS.Commands
 {
-    class MKDirCommand : ICommand
+    class CatCommand : ICommand
     {
         public void Run(CommandArg[] commandArgs)
         {
-            if (commandArgs.Length != 1)
+            if(commandArgs.Length != 1)
             {
                 Terminal.WriteLine("Invalid Paramaters");
                 return;
             }
 
-            Filesystem.CreateFolder(commandArgs[0].String);
+            string[] lines = Filesystem.GetFileContent(commandArgs[0].String);
+
+            if(lines.Length == 0) { return; }
+
+            for(int index = 0, line = 1; index < lines.Length; index++, line++)
+            {
+                Terminal.WriteLine(line + ". " + lines[index]);
+            }
         }
     }
 }

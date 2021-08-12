@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Text;
 using FrameOS.FileSystem;
+using Cosmos.HAL;
 
 namespace FrameOS.Commands
 {
@@ -20,10 +21,10 @@ namespace FrameOS.Commands
                 DirectoryEntry directory = Filesystem.fs.GetDirectory(Filesystem.GetFullPath() + @"\" + directories[i]);
                 if (directory == null)
                 {
-                    Console.WriteLine("Folder: " + directories[i]);
+                    Terminal.WriteLine("Folder: " + directories[i]);
                 }else
                 {
-                    Console.WriteLine("Directory name: " + directory.mName);
+                    Terminal.WriteLine("Directory name: " + directory.mName);
                 }
             }
 
@@ -35,10 +36,10 @@ namespace FrameOS.Commands
 
                 if (file == null)
                 {
-                    Console.WriteLine("File: " + files[i]);
+                    Terminal.WriteLine("File: " + files[i]);
                 }else
                 {
-                    Console.WriteLine("File Name: " + file.mName + "    " + file.mSize + " bytes");
+                    Terminal.WriteLine("File Name: " + file.mName + "    " + file.mSize + " bytes");
                 }
             }
         }

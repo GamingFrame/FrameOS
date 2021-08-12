@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Cosmos.HAL;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Text;
@@ -17,14 +18,14 @@ namespace FrameOS.FileSystem
         {
             Sys.FileSystem.VFS.VFSManager.RegisterVFS(fs);
 
-            Console.WriteLine("Checking drive 0 is accessible...");
+            Terminal.WriteLine("Checking drive 0 is accessible...");
             try
             {
                 fs.GetDirectoryListing(@"0:\");
             }
             catch (Exception)
             {
-                Console.WriteLine("WARNING: Could not access drive 0!");
+                Terminal.WriteLine("WARNING: Could not access drive 0!");
             }
         }
 
@@ -55,7 +56,7 @@ namespace FrameOS.FileSystem
                 CurrentPath = currentPath;
                 return;
             }
-            Console.WriteLine("Could not go to: " + currentPath);
+            Terminal.WriteLine("Could not go to: " + currentPath);
         }
 
         public static string GetCurrentDirectory()
@@ -71,17 +72,69 @@ namespace FrameOS.FileSystem
                 CurrentPath = CurrentPath + @"\" + directory;
                 return;
             }
-            Console.WriteLine(directory + " does not exist");
+            Terminal.WriteLine(directory + " does not exist");
         }
 
         public static void CreateFolder(string name)
         {
             if (fs.GetDirectory(GetFullPath() + @"\" + name) != null) {
-                Console.WriteLine(name + " already exists");
+                Terminal.WriteLine(name + " already exists");
                 return;
             }
             fs.CreateDirectory(GetFullPath() + @"\" + name);
             CurrentPath = CurrentPath + @"\" + name;
+        }
+
+        public static void CreateFile(string name)
+        {
+            if (fs.GetFile(GetFullPath() + @"\" + name) != null)
+            {
+                Terminal.WriteLine(name + " already exists");
+                return;
+            }
+
+            fs.CreateFile(GetFullPath() + @"\" + name);
+        }
+
+        public static string[] GetFileContent(string fileName)
+        {
+            if (fs.GetFile(GetFullPath() + @"\" + fileName) == null)
+            {
+                Terminal.WriteLine(fileName + " does not exists");
+                return new string[] { };
+            }
+
+            string[] lines = File.ReadAllLines(GetFullPath() + @"\" + fileName);
+
+            if(lines.Length == 0)
+            {
+                Terminal.WriteLine(fileName + " does not have content");
+                return new string[] { };
+            }
+
+            return lines;
+        }
+
+        public static void RemoveFile(string fileName)
+        {
+            if (fs.GetFile(GetFullPath() + @"\" + fileName) == null)
+            {
+                Terminal.WriteLine(fileName + " does not exists");
+                return;
+            }
+
+            File.Delete(GetFullPath() + @"\" + fileName);
+        }
+
+        public static void RemoveFolder(string folder)
+        {
+            if (fs.GetDirectory(GetFullPath() + @"\" + folder) == null)
+            {
+                Terminal.WriteLine(folder + " does not exists");
+                return;
+            }
+
+            Directory.Delete(GetFullPath() + @"\" + folder);
         }
     }
 }

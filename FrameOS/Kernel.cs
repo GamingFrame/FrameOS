@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Cosmos.HAL;
+using System;
 using System.Collections.Generic;
 using System.Text;
 using Sys = Cosmos.System;
@@ -9,6 +10,7 @@ namespace FrameOS
     {
         protected override void BeforeRun()
         {
+            VGADriverII.Initialize(VGAMode.Text90x60);
             Boot.Boot.StartUp();
         }
 
@@ -16,18 +18,19 @@ namespace FrameOS
         {
             try
             {
-                Console.Write(UserSystem.UserProfileSystem.CurrentUser + "@" + FileSystem.Filesystem.GetCurrentPath() + ">");
-                Terminal.Terminal.Run(Terminal.Terminal.ReadLine());
+                Terminal.Write(UserSystem.UserProfileSystem.CurrentUser + "@" + FileSystem.Filesystem.GetCurrentPath() + ">");
+                Shell.Shell.Run(Terminal.ReadLine());
+                Terminal.NewLine();
             }
             catch (Exception e)
             {
                 if (e is FatalException)
                 {
-                    Terminal.Terminal.Crash(e);
+                    Shell.Shell.Crash(e);
                 }
                 else
                 {
-                    Console.WriteLine("Error: " + e.Message);
+                    Terminal.WriteLine("Error: " + e.Message);
                 }
             }
         }
