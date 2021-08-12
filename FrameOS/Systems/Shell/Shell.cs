@@ -26,10 +26,10 @@ namespace FrameOS.Shell
             Terminal.WriteLine(@" |  __| '__/ _` | '_ ` _ \ / _ \ |  | |\___ \ ");
             Terminal.WriteLine(@" | |  | | | (_| | | | | | |  __/ |__| |____) |");
             Terminal.WriteLine(@" |_|  |_|  \__,_|_| |_| |_|\___|\____/|_____/ ");
-            NTPClient client = new NTPClient();
+            /*NTPClient client = new NTPClient();
 
             DateTime time = client.GetNetworkTime();
-            if (time != null) Terminal.WriteLine("The current time is: " + time);
+            if (time != null) Terminal.WriteLine("The current time is: " + time);*/
 
             Terminal.NewLine();
 

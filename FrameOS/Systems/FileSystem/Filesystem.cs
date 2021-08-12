@@ -21,7 +21,7 @@ namespace FrameOS.FileSystem
             Terminal.WriteLine("Checking drive 0 is accessible...");
             try
             {
-                fs.GetDirectoryListing(@"0:\");
+                //fs.GetDirectoryListing(@"0:\");
             }
             catch (Exception)
             {

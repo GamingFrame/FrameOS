@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 using Cosmos.HAL;
+using Cosmos.HAL.Network;
 using Cosmos.System.Network;
 using Cosmos.System.Network.Config;
 using Cosmos.System.Network.IPv4;
@@ -20,13 +21,23 @@ namespace FrameOS.Systems.Networking
             {
                 /** Send a DHCP Discover packet **/
                 //This will automatically set the IP config after DHCP response
-                if(xClient.SendDiscoverPacket() == -1)
+                if (xClient.SendDiscoverPacket() == -1)
                 {
                     Cosmos.HAL.Terminal.WriteLine("DHCP server timed out, trying manual set.");
                     NetworkDevice nic = NetworkDevice.GetDeviceByName("eth0"); //get network device by name
                     IPConfig.Enable(nic, new Address(192, 168, 0, 69), new Address(255, 255, 255, 0), new Address(192, 168, 0, 1));
                     DNSConfig.Add(new Address(8, 8, 8, 8));
+                    return;
                 }
+
+                NetworkDevice _nic = NetworkDevice.GetDeviceByName("eth0"); //get network device by name
+                Address ipAdress = NetworkConfig.Get(_nic).IPAddress;
+                Address subnet = NetworkConfig.Get(_nic).SubnetMask;
+                Address gateway = DNSConfig.DNSNameservers[0]; // FOR SOME REASON THIS ONE IS THE GATEWAY???
+
+                IPConfig.Enable(_nic, ipAdress, subnet, gateway);
+                
+
             }
         }
 

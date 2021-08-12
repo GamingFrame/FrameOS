@@ -25,6 +25,7 @@ namespace FrameOS.Boot
                 // Load File System
 
                 Filesystem.SetUp();
+                Terminal.Clear();
 
                 Terminal.WriteLine("Starting Networking System...");
                 // Load Networking System
