@@ -61,7 +61,26 @@ namespace FrameOS.Terminal
         public static void Run(string v)
         {
             var args = v.Split(' ');
-            CommandArg[] commandArgs = CommandArg.GetCommandArgs(args);
+            List<string> argsFixed = new List<string>();
+
+            for (int i = 0; i < args.Length; i++)
+            {
+                if (args[i].StartsWith('"') && !args[i].EndsWith('"'))
+                {
+                    string temp = args[i];
+                    while(i < args.Length && !args[i].EndsWith('"'))
+                    {
+                        temp += " " + args[++i];
+                    }
+                    argsFixed.Add(temp.Replace("\"", ""));
+                }
+                else
+                {
+                    argsFixed.Add(args[i].Replace("\"", ""));
+                }
+            }
+
+            CommandArg[] commandArgs = CommandArg.GetCommandArgs(argsFixed.ToArray());
             ICommand command = CommandSystem.GetCommand(args[0]);
 
             if (command != null)
