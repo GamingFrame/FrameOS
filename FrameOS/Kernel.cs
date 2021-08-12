@@ -16,6 +16,7 @@ namespace FrameOS
         {
             try
             {
+                Sys.Notes.AS1
                 Console.Write(UserSystem.UserProfileSystem.CurrentUser + "@" + FileSystem.Filesystem.GetCurrentPath() + ">");
                 Terminal.Terminal.Run(Terminal.Terminal.ReadLine());
             }

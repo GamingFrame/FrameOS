@@ -57,6 +57,9 @@ namespace FrameOS.Boot
                 CommandSystem.RegisterCommand("cd", new CDCommand());
                 CommandSystem.RegisterCommand("ls", new LSCommand());
                 CommandSystem.RegisterCommand("mkdir", new MKDirCommand());
+                CommandSystem.RegisterCommand("contents", new ContentsCommand());
+                CommandSystem.RegisterCommand("reboot", new RebootCommand());
+                CommandSystem.RegisterCommand("shutdown", new ShutdownCommand());
 
                 //TODO fix the encryption system.
                 //CommandSystem.RegisterCommand("encrypt", new EncryptCommand());
