@@ -57,6 +57,10 @@ namespace FrameOS.Boot
                 CommandSystem.RegisterCommand("cd", new CDCommand());
                 CommandSystem.RegisterCommand("ls", new LSCommand());
                 CommandSystem.RegisterCommand("mkdir", new MKDirCommand());
+                CommandSystem.RegisterCommand("touch", new TouchCommand());
+                CommandSystem.RegisterCommand("cat", new CatCommand());
+                CommandSystem.RegisterCommand("rm", new RmCommand());
+                CommandSystem.RegisterCommand("rmdir", new RmDirCommand());
                 CommandSystem.RegisterCommand("contents", new ContentsCommand());
                 CommandSystem.RegisterCommand("reboot", new RebootCommand());
                 CommandSystem.RegisterCommand("shutdown", new ShutdownCommand());

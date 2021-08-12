@@ -83,5 +83,57 @@ namespace FrameOS.FileSystem
             fs.CreateDirectory(GetFullPath() + @"\" + name);
             CurrentPath = CurrentPath + @"\" + name;
         }
+
+        public static void CreateFile(string name)
+        {
+            if (fs.GetFile(GetFullPath() + @"\" + name) != null)
+            {
+                Console.WriteLine(name + " already exists");
+                return;
+            }
+
+            fs.CreateFile(GetFullPath() + @"\" + name);
+        }
+
+        public static string[] GetFileContent(string fileName)
+        {
+            if (fs.GetFile(GetFullPath() + @"\" + fileName) == null)
+            {
+                Console.WriteLine(fileName + " does not exists");
+                return new string[] { };
+            }
+
+            string[] lines = File.ReadAllLines(GetFullPath() + @"\" + fileName);
+
+            if(lines.Length == 0)
+            {
+                Console.WriteLine(fileName + " does not have content");
+                return new string[] { };
+            }
+
+            return lines;
+        }
+
+        public static void RemoveFile(string fileName)
+        {
+            if (fs.GetFile(GetFullPath() + @"\" + fileName) == null)
+            {
+                Console.WriteLine(fileName + " does not exists");
+                return;
+            }
+
+            File.Delete(GetFullPath() + @"\" + fileName);
+        }
+
+        public static void RemoveFolder(string folder)
+        {
+            if (fs.GetDirectory(GetFullPath() + @"\" + folder) == null)
+            {
+                Console.WriteLine(folder + " does not exists");
+                return;
+            }
+
+            Directory.Delete(GetFullPath() + @"\" + folder);
+        }
     }
 }
