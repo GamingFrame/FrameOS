@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 using FrameOS.FileSystem;
+using Cosmos.HAL;
 
 namespace FrameOS.Commands
 {
@@ -12,12 +13,12 @@ namespace FrameOS.Commands
         {
             if(commandArgs.Length != 1)
             {
-                Console.WriteLine("Invalid Paramaters");
+                Terminal.WriteLine("Invalid Paramaters");
                 return;
             }
 
             Filesystem.RemoveFile(commandArgs[0].String);
-            Console.WriteLine("The file " + commandArgs[0].String + " has been deleted");
+            Terminal.WriteLine("The file " + commandArgs[0].String + " has been deleted");
         }
     }
 }
