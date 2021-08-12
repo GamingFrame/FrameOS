@@ -4,8 +4,11 @@ using System.Collections.Generic;
 using System.Text;
 using FrameOS.UserSystem;
 using FrameOS.Systems.CommandSystem;
-using ts = FrameOS.Terminal;
+using ts = FrameOS.Shell;
 using FrameOS.Commands;
+using Cosmos.System.Graphics;
+using FrameOS.Systems.Networking;
+using Cosmos.HAL;
 
 namespace FrameOS.Boot
 {
@@ -16,39 +19,40 @@ namespace FrameOS.Boot
         {
             try
             {
-                Console.WriteLine("Booting FrameOS...");
+                Terminal.WriteLine("Booting FrameOS...");
 
-                Console.WriteLine("Starting File System...");
+                Terminal.WriteLine("Starting File System...");
                 // Load File System
 
                 Filesystem.SetUp();
 
-                Console.WriteLine("Starting Networking System...");
+                Terminal.WriteLine("Starting Networking System...");
                 // Load Networking System
+                NetworkSystem.SetLocalIP();
 
-                Console.WriteLine("Starting User System...");
+                Terminal.WriteLine("Starting User System...");
                 // Load User System
 
                 bool firstTime = UserProfileSystem.FirstTime();
 
-                Console.WriteLine("Checking First Time Setup...");
+                Terminal.WriteLine("Checking First Time Setup...");
 
                 if (firstTime)
                 {
-                    Console.WriteLine("First time setup...");
-                    Console.WriteLine("Please make an account.");
+                    Terminal.WriteLine("First time setup...");
+                    Terminal.WriteLine("Please make an account.");
 
-                    Console.Write("Username: ");
-                    string username = Console.ReadLine();
-                    Console.Write("Password: ");
-                    string password = Console.ReadLine();
+                    Terminal.Write("Username: ");
+                    string username = Terminal.ReadLine();
+                    Terminal.Write("Password: ");
+                    string password = Terminal.ReadLine();
 
                     UserProfileSystem.CreateUser(username, password, 2);
 
-                    Console.WriteLine("Acount succesfully created.");
+                    Terminal.WriteLine("Acount succesfully created.");
                 }
 
-                Console.WriteLine("Loading Commands...");
+                Terminal.WriteLine("Loading Commands...");
 
                 CommandSystem.RegisterCommand("help", new HelpCommand());
                 CommandSystem.RegisterCommand("tetris", new TetrisCommand());
@@ -61,27 +65,34 @@ namespace FrameOS.Boot
                 CommandSystem.RegisterCommand("cat", new CatCommand());
                 CommandSystem.RegisterCommand("rm", new RmCommand());
                 CommandSystem.RegisterCommand("rmdir", new RmDirCommand());
-                CommandSystem.RegisterCommand("contents", new ContentsCommand());
                 CommandSystem.RegisterCommand("reboot", new RebootCommand());
                 CommandSystem.RegisterCommand("shutdown", new ShutdownCommand());
+                CommandSystem.RegisterCommand("startFTP", new StartFTPCommand());
+                CommandSystem.RegisterCommand("startWeb", new StartWebServerCommand());
+                CommandSystem.RegisterCommand("wurl", new WurlCommand());
+                CommandSystem.RegisterCommand("getip", new GetIPCommand());
+                CommandSystem.RegisterCommand("networkinfo", new NetworkInfoCommand());
+                CommandSystem.RegisterCommand("time", new GetNetworkTimeCommand());
+                CommandSystem.RegisterCommand("ping", new PingCommand());
+
 
                 //TODO fix the encryption system.
                 //CommandSystem.RegisterCommand("encrypt", new EncryptCommand());
                 //CommandSystem.RegisterCommand("decrypt", new DecryptCommand());
 
-                Console.WriteLine("Loading Terminal...");
+                Terminal.WriteLine("Loading Terminal...");
                 // Load Terminal    
-                ts.Terminal.SetUp();
+                ts.Shell.SetUp();
             }
             catch (Exception e)
             {
                 if (e is FatalException)
                 {
-                    ts.Terminal.Crash(e);
+                    ts.Shell.Crash(e);
                 }
                 else
                 {
-                    Console.WriteLine("Error: " + e.Message);
+                    Terminal.WriteLine("Error: " + e.Message);
                 }
             }
 

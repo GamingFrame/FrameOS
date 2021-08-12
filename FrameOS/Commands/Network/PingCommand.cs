@@ -2,22 +2,23 @@
 using System;
 using System.Collections.Generic;
 using System.Text;
-using FrameOS.FileSystem;
-using System.IO;
+using FrameOS.Systems.Networking;
+using Cosmos.HAL;
 
 namespace FrameOS.Commands
 {
-    class ContentsCommand : ICommand
+    class PingCommand : ICommand
     {
         public void Run(CommandArg[] commandArgs)
         {
             if (commandArgs.Length != 1)
             {
-                Console.WriteLine("Invalid Paramaters");
+                Terminal.WriteLine("Invaild synax. Usage: ping <ip address or site>"); // I like this message, imma change this everywhere
                 return;
             }
-            string[] contents = File.ReadAllLines(Filesystem.GetFullPath() + @"\" + commandArgs[0].String);
-            Console.WriteLine(string.Join(" ", contents));
+
+            NetworkSystem.Ping(commandArgs[0].String);
+
         }
     }
 }

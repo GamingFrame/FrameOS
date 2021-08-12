@@ -17,6 +17,14 @@
         <PxeInterface>192.168.0.8</PxeInterface>
     </PropertyGroup>
 
+    <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+      <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+    </PropertyGroup>
+
+    <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
+      <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+    </PropertyGroup>
+
     <ItemGroup>
         <PackageReference Include="Cosmos.Build" Version="0-*" NoWarn="NU1604" />
         <PackageReference Include="Cosmos.Debug.Kernel" Version="0-*" NoWarn="NU1604" />
@@ -24,8 +32,8 @@
     </ItemGroup>
 
     <ItemGroup>
+      <Folder Include="Drivers\VGA\" />
       <Folder Include="Systems\Input\" />
-      <Folder Include="Systems\Networking\" />
     </ItemGroup>
 
 </Project>

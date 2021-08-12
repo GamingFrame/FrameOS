@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Text;
 using FrameOS.FileSystem;
 using sys = Cosmos.System;
+using Cosmos.HAL;
 
 namespace FrameOS.Commands
 {
@@ -13,17 +14,17 @@ namespace FrameOS.Commands
         {
             if (commandArgs.Length != 1)
             {
-                Console.WriteLine("Invalid Paramaters");
+                Terminal.WriteLine("Invalid Paramaters");
                 return;
             }
 
             string drive = commandArgs[0].String;
 
-            Console.WriteLine("Formating drive " + drive);
+            Terminal.WriteLine("Formating drive " + drive);
 
             Filesystem.Format(drive);
 
-            Console.WriteLine("Rebooting the system");
+            Terminal.WriteLine("Rebooting the system");
 
             sys.Power.Reboot();
         }

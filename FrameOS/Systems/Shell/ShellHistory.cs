@@ -1,14 +1,15 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using t = Cosmos.HAL;
 
 namespace FrameOS.Systems.Terminal
 {
-    class TerminalHistory
+    class ShellHistory
     {
         private int _stackSize;
 
-        public TerminalHistory(int stackSize)
+        public ShellHistory(int stackSize)
         {
             _stackSize = stackSize;
         }
@@ -30,11 +31,14 @@ namespace FrameOS.Systems.Terminal
         public string GetHistory(int index)
         {
             int i = history.Count - index;
-            i = Math.Min(i, 0);
+            //t.Terminal.WriteLine(i.ToString());
+
+            //i = Math.Min(i, 0);
+            //t.Terminal.WriteLine(i.ToString());
 
             return history[i];
         }
 
-        public int Max() => _stackSize;
+        public int Max() => history.Count;
     }
 }
