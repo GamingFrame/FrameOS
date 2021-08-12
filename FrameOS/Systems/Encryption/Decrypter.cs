@@ -1,5 +1,8 @@
-﻿using System;
+﻿using DeviceId;
+using System;
 using System.Collections.Generic;
+using System.IO;
+using System.Security.Cryptography;
 using System.Text;
 
 namespace FrameOS.Systems.Encryption
@@ -7,32 +10,28 @@ namespace FrameOS.Systems.Encryption
     class Decrypter
     {
 
-        public static string Decrypt(string v)
+        public static string Decrypt(string cipherText)
         {
-            string[] encrypted = v.Split('|');
+            byte[] iv = new byte[16];
+            byte[] buffer = Convert.FromBase64String(cipherText);
 
-            string decrypted = "";
-
-            for (int i = 0; i < encrypted.Length; i++)
+            using (Aes aes = Aes.Create())
             {
-                double number = double.Parse(encrypted[i]);
-                
-                int charCode = (int)Math.Round(Pow(10, number));
-                Console.WriteLine(charCode);
-                decrypted += Convert.ToChar(charCode);
+                aes.Key = Encoding.UTF8.GetBytes(new DeviceIdBuilder().AddProcessorId().AddMotherboardSerialNumber().ToString());
+                aes.IV = iv;
+                ICryptoTransform decryptor = aes.CreateDecryptor(aes.Key, aes.IV);
+
+                using (MemoryStream memoryStream = new MemoryStream(buffer))
+                {
+                    using (CryptoStream cryptoStream = new CryptoStream((Stream)memoryStream, decryptor, CryptoStreamMode.Read))
+                    {
+                        using (StreamReader streamReader = new StreamReader((Stream)cryptoStream))
+                        {
+                            return streamReader.ReadToEnd();
+                        }
+                    }
+                }
             }
-
-            return decrypted;
-
-        }
-
-        public static double Pow(double x, double y)
-        {
-            double val = y * Math.Log(x);
-
-            double result = Math.Exp(val);
-
-            return result;
         }
     }
 }
