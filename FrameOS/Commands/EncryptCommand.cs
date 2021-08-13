@@ -1,4 +1,5 @@
-﻿using FrameOS.Systems.CommandSystem;
+﻿using Cosmos.HAL;
+using FrameOS.Systems.CommandSystem;
 using FrameOS.Systems.Encryption;
 using System;
 using System.Collections.Generic;
@@ -11,7 +12,7 @@ namespace FrameOS.Commands
         public string description { get => "Encrypt text."; }
         public void Run(CommandArg[] commandArgs)
         {
-            Console.WriteLine(Encrypter.Encrypt(commandArgs[0].String));
+            Terminal.WriteLine(Hashing.generateHash(commandArgs[0].String));
         }
     }
 }

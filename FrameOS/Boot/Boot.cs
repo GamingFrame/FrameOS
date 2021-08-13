@@ -79,8 +79,8 @@ namespace FrameOS.Boot
 
 
                 //TODO fix the encryption system.
-                //CommandSystem.RegisterCommand("encrypt", new EncryptCommand());
-                //CommandSystem.RegisterCommand("decrypt", new DecryptCommand());
+                CommandSystem.RegisterCommand("encrypt", new EncryptCommand());
+                CommandSystem.RegisterCommand("decrypt", new DecryptCommand());
 
                 Terminal.WriteLine("Loading Terminal...");
                 // Load Terminal    
