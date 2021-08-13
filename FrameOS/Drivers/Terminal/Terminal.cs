@@ -81,21 +81,30 @@ namespace Cosmos.HAL
         }
 
         // read line of input
-        public static string ReadLine()
+        public static string ReadLine(bool hide = false)
         {
             string input = "";
             while (true)
             {
                 ConsoleKeyInfo key = Console.ReadKey(true);
                 // character
-                if (key.KeyChar >= 32 && key.KeyChar <= 126) { WriteChar(key.KeyChar); input += key.KeyChar; }
+                if (key.KeyChar >= 32 && key.KeyChar <= 126) {
+                    if (hide == false)
+                    {
+                        WriteChar(key.KeyChar);
+                    }
+                    input += key.KeyChar; 
+                }
                 // backspace
                 else if (key.Key == ConsoleKey.Backspace)
                 {
                     if (input.Length > 0)
                     {
                         input = input.Remove(input.Length - 1, 1);
-                        Backspace();
+                        if (hide == false)
+                        {
+                            Backspace();
+                        }
                     }
                 }
                 // enter
@@ -105,9 +114,16 @@ namespace Cosmos.HAL
                     if (historyIndex != Shell.GetHistoryMax())
                     {
                         historyIndex++;
-                        foreach (var _ in input) { Backspace(); }
+                        if (hide == false)
+                        {
+                            foreach (var _ in input) { Backspace(); }
+                        }
+
                         input = Shell.GetHistoryItem(historyIndex);
-                        Write(input);
+                        if (hide == false)
+                        {
+                            Write(input);
+                        }
                     }
                 }
                 else if (key.Key == ConsoleKey.DownArrow)
@@ -115,11 +131,15 @@ namespace Cosmos.HAL
                     if (historyIndex > 1)
                     {
                         historyIndex--;
-                        foreach (var _ in input) { Backspace(); }
-
-
+                        if (hide == false)
+                        {
+                            foreach (var _ in input) { Backspace(); }
+                        }
                         input = Shell.GetHistoryItem(historyIndex);
-                        Write(input);
+                        if (hide == false)
+                        {
+                            Write(input);
+                        }
                     }
                 }
             }

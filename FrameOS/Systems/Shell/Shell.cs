@@ -26,10 +26,10 @@ namespace FrameOS.Shell
             Terminal.WriteLine(@" |  __| '__/ _` | '_ ` _ \ / _ \ |  | |\___ \ ");
             Terminal.WriteLine(@" | |  | | | (_| | | | | | |  __/ |__| |____) |");
             Terminal.WriteLine(@" |_|  |_|  \__,_|_| |_| |_|\___|\____/|_____/ ");
-            /*NTPClient client = new NTPClient();
+            NTPClient client = new NTPClient();
 
             DateTime time = client.GetNetworkTime();
-            if (time != null) Terminal.WriteLine("The current time is: " + time);*/
+            if (time != null) Terminal.WriteLine("The current time is: " + time + " UTC");
 
             Terminal.NewLine();
 
@@ -38,13 +38,13 @@ namespace FrameOS.Shell
                 Terminal.Write("Username: ");
                 string username = Terminal.ReadLine();
                 Terminal.Write("Password: ");
-                string password = Terminal.ReadLine();
+                string password = Terminal.ReadLine(true);
                 while (!UserProfileSystem.Login(username, password))
                 {
                     Terminal.Write("Username: ");
                     username = Terminal.ReadLine();
                     Terminal.Write("Password: ");
-                    password = Terminal.ReadLine();
+                    password = Terminal.ReadLine(true);
                 }
 
                 Terminal.WriteLine("Logged in as " + username);

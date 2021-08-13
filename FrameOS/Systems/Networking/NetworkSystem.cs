@@ -77,10 +77,11 @@ namespace FrameOS.Systems.Networking
         public static string Get(string url)
         {
             request +=
-                "GET " + GetResource(url) + " HTTP/1.1\n" +
+                "GET " + GetResource(url) + " HTTP/1.1\n" + // TODO try 0.9 for HTTP version? Perhaps that yields different results.
                 "Host: " + GetHost(url) + "\n" +
-                "User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:88.0) Gecko/20100101 Firefox/88.0\n" +
+                //"User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:88.0) Gecko/20100101 Firefox/88.0\n" +
                 "";
+            Cosmos.HAL.Terminal.WriteLine("Headers: " + request);
             using (var xClient = new DnsClient())
             {
                 xClient.Connect(dns); //DNS Server address
@@ -96,7 +97,14 @@ namespace FrameOS.Systems.Networking
                 tcpc.Send(Encoding.ASCII.GetBytes(request));
                 endPoint.address = destination;
                 endPoint.port = 80;
-                return Encoding.ASCII.GetString(tcpc.Receive(ref endPoint));
+                string converted = Encoding.ASCII.GetString(tcpc.Receive(ref endPoint));
+
+                if (converted == null || converted == "")
+                {
+                    return "ERROR";
+                }
+
+                return converted;
             }
 
         }
@@ -126,12 +134,14 @@ namespace FrameOS.Systems.Networking
             {
                 throw new Exception("HTTPS not supported!");
             }
-            string[] spliturl = newurl.Split("/");
+            /*string[] spliturl = newurl.Split("/");
             for (int i = 1; i < spliturl.Length - 1; i++)
             {
                 newurl += spliturl[i];
             }
-            return newurl;
+            return newurl;*/
+
+            return newurl.Replace(GetHost(url), "");
         }
 
         public static void GetIP(string hostname)
