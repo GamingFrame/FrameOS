@@ -38,7 +38,9 @@ namespace FrameOS.Commands
                 if (file == null)
                 {
                     Terminal.WriteLine("File: " + files[i]);
-                }else
+                }
+
+                if (!file.mName.StartsWith('.'))
                 {
                     Terminal.WriteLine("File Name: " + file.mName + "    " + file.mSize + " bytes");
                 }
