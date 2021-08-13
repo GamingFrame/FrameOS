@@ -11,6 +11,7 @@ namespace FrameOS.Commands
 {
     class StartFTPCommand : ICommand
     {
+        public string description { get => "Start a FTP server."; }
         public void Run(CommandArg[] commandArgs)
         {
             Terminal.WriteLine("Started listening on: " + NetworkSystem.GetLocalIP());

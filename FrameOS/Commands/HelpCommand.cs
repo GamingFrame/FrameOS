@@ -8,13 +8,15 @@ namespace FrameOS.Commands
 {
     class HelpCommand : ICommand
     {
+        public string description { get => "Show all the commands."; }
+
         public void Run(CommandArg[] commandArgs)
         {
             Dictionary<string, ICommand> commands = CommandSystem.commands;
 
             foreach (var item in commands)
             {
-                Terminal.WriteLine(item.Key + " - Add description WIP");
+                Terminal.WriteLine(item.Key + " - "  + item.Value.description);
             }
         }
     }

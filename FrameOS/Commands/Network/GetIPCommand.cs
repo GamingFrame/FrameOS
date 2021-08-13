@@ -8,6 +8,7 @@ namespace FrameOS.Commands
 {
     class GetIPCommand : ICommand
     {
+        public string description { get => "Get the IP from a host."; }
         public void Run(CommandArg[] commandArgs)
         {
             NetworkSystem.GetIP(commandArgs[0].String.Replace("http://", "").Replace("https://", "").Replace("/", ""));

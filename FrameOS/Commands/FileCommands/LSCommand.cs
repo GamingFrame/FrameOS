@@ -11,6 +11,7 @@ namespace FrameOS.Commands
 {
     class LSCommand : ICommand
     {
+        public string description { get => "List all files in the folder."; }
         public void Run(CommandArg[] commandArgs)
         {
             string fullPath = Filesystem.GetFullPath();

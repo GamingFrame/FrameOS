@@ -7,6 +7,8 @@ namespace FrameOS.Commands
 {
     public interface ICommand
     {
+        string description { get; }
+
         void Run(CommandArg[] commandArgs);
     }
 }

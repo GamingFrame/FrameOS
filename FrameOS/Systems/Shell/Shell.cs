@@ -20,6 +20,7 @@ namespace FrameOS.Shell
         public static void SetUp()
         {
             Terminal.Clear();
+            Terminal.TextColor = ConsoleColor.Red;
             Terminal.WriteLine(@"  ______                         ____   _____ ");
             Terminal.WriteLine(@" |  ____|                       / __ \ / ____|");
             Terminal.WriteLine(@" | |__ _ __ __ _ _ __ ___   ___| |  | | (___  ");
@@ -27,9 +28,9 @@ namespace FrameOS.Shell
             Terminal.WriteLine(@" | |  | | | (_| | | | | | |  __/ |__| |____) |");
             Terminal.WriteLine(@" |_|  |_|  \__,_|_| |_| |_|\___|\____/|_____/ ");
             NTPClient client = new NTPClient();
-
+            Terminal.TextColor = ConsoleColor.White;
             DateTime time = client.GetNetworkTime();
-            if (time != null) Terminal.WriteLine("The current time is: " + time + " UTC");
+            if (time != null) { Terminal.NewLine(); Terminal.WriteLine("The current time is: " + time + " UTC"); };
 
             Terminal.NewLine();
 

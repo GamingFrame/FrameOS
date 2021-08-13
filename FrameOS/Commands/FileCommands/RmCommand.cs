@@ -9,6 +9,7 @@ namespace FrameOS.Commands
 {
     class RmCommand : ICommand
     {
+        public string description { get => "Remove a file."; }
         public void Run(CommandArg[] commandArgs)
         {
             if(commandArgs.Length != 1)

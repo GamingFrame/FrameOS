@@ -9,6 +9,7 @@ namespace FrameOS.Commands
 {
     class WurlCommand : ICommand
     {
+        public string description { get => "Send a GET request."; }
         public void Run(CommandArg[] commandArgs)
         {
             Terminal.WriteLine(NetworkSystem.Get(commandArgs[0].String));

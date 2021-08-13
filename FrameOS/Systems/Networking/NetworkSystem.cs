@@ -36,8 +36,8 @@ namespace FrameOS.Systems.Networking
                 Address gateway = DNSConfig.DNSNameservers[0]; // FOR SOME REASON THIS ONE IS THE GATEWAY???
 
                 IPConfig.Enable(_nic, ipAdress, subnet, gateway);
-                
 
+                xClient.Close();
             }
         }
 
@@ -50,64 +50,74 @@ namespace FrameOS.Systems.Networking
         {
             using (var xServer = new TcpListener(80))
             {
-                while (true)
-                {
-                    /** Start server **/
-                    xServer.Start();
+                /** Start server **/
+                xServer.Start();
 
-                    /** Accept incoming TCP connection **/
-                    var client = xServer.AcceptTcpClient(); //blocking
+                /** Accept incoming TCP connection **/
+                var client = xServer.AcceptTcpClient(); //blocking
 
-                    /** Send data **/
-                    client.Send(Encoding.ASCII.GetBytes("<html>" +
-                        "<head>" +
-                        "</head>" +
-                        "<body>HELLO WORLD AAAAA</body>" +
-                        "</html>"));
-                }
+                /** Send data **/
+                client.Send(Encoding.ASCII.GetBytes("<html>" +
+                    "<head>" +
+                    "</head>" +
+                    "<body>HELLO WORLD AAAAA</body>" +
+                    "</html>"));
+
+                client.Close();
 
             }
         }
 
-        private static string request = string.Empty;
         private static TcpClient tcpc = new TcpClient(80);
         private static Address dns = new Address(8, 8, 8, 8);
         private static EndPoint endPoint = new EndPoint(dns, 80);
 
         public static string Get(string url)
         {
-            request +=
-                "GET " + GetResource(url) + " HTTP/1.1\n" + // TODO try 0.9 for HTTP version? Perhaps that yields different results.
-                "Host: " + GetHost(url) + "\n" +
-                //"User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:88.0) Gecko/20100101 Firefox/88.0\n" +
-                "";
-            Cosmos.HAL.Terminal.WriteLine("Headers: " + request);
-            using (var xClient = new DnsClient())
+            string httpresponse = "";
+            try
             {
-                xClient.Connect(dns); //DNS Server address
+                var dnsClient = new DnsClient();
+                var tcpClient = new TcpClient(80);
 
-                /** Send DNS ask for a single domain name **/
-                xClient.SendAsk(GetHost(url));
+                //Uri uri = new Uri(arguments[0]); Missing plugs
 
-                /** Receive DNS Response **/
-                Address destination = xClient.Receive(); //can set a timeout value
+                dnsClient.Connect(DNSConfig.Server(0));
+                dnsClient.SendAsk(GetHost(url));
+                Address address = dnsClient.Receive();
+                dnsClient.Close();
 
-                xClient.Close();
-                tcpc.Connect(destination, 80);
-                tcpc.Send(Encoding.ASCII.GetBytes(request));
-                endPoint.address = destination;
-                endPoint.port = 80;
-                string converted = Encoding.ASCII.GetString(tcpc.Receive(ref endPoint));
-
-                if (converted == null || converted == "")
+                if (address == null)
                 {
-                    return "ERROR";
+                    return "DNS: Could not find " + url;
                 }
 
-                return converted;
+                tcpClient.Connect(address, 80);
+
+                string httpget = "GET " + GetResource(url) + " HTTP/1.1\r\n" +
+                                 "User-Agent: Wurl (CosmosOS)\r\n" +
+                                 "Accept: */*\r\n" +
+                                 "Accept-Encoding: identity\r\n" +
+                                 "Host: " + GetHost(url) + "\r\n" +
+                                 "Connection: Keep-Alive\r\n\r\n";
+
+                tcpClient.Send(Encoding.ASCII.GetBytes(httpget));
+
+                var ep = new EndPoint(Address.Zero, 0);
+                var data = tcpClient.Receive(ref ep);
+                tcpClient.Close();
+
+                httpresponse = Encoding.ASCII.GetString(data);
+
+            }
+            catch (Exception ex)
+            {
+                return "ERROR: " + ex.Message;
             }
 
+            return httpresponse;
         }
+
         public static string GetHost(string url)
         {
             string newurl = url;
@@ -141,7 +151,14 @@ namespace FrameOS.Systems.Networking
             }
             return newurl;*/
 
-            return newurl.Replace(GetHost(url), "");
+            newurl = newurl.Replace(GetHost(url), "");
+
+            if (!newurl.Contains("/"))
+            {
+                newurl += '/';
+            }
+
+            return newurl;
         }
 
         public static void GetIP(string hostname)

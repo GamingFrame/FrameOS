@@ -12,6 +12,7 @@ namespace Cosmos.HAL
         Text80x25,
         Text80x50,
         Text90x60,
+        Text320x200,
         Pixel320x200,
         Pixel320x200DB,
     }
@@ -290,6 +291,16 @@ namespace Cosmos.HAL
                         SetModeProperties(90, 60, 4, true, false);
                         fixed (byte* ptr = VGAModeRegisters.Mode90x60_Text) { WriteRegisters(ptr); }
                         SetFont(VGAFontData.Font8x8_Data, 8);
+                        SetColorPalette(Palette16);
+                        break;
+                    }
+                // VERY EXPERIMENTAL I am just trying shit out tbf 
+                // THIS IS BROKEN need to figure out later how all this shit works lol
+                case VGAMode.Text320x200:
+                    {
+                        SetModeProperties(320, 200, 4, true, false);
+                        fixed (byte* ptr = VGAModeRegisters.Mode320x200x256_Pixel) { WriteRegisters(ptr); }
+                        SetFont(VGAFontData.Font8x16_Data, 16);
                         SetColorPalette(Palette16);
                         break;
                     }

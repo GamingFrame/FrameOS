@@ -8,6 +8,7 @@ namespace FrameOS
 {
     public class Kernel : Sys.Kernel
     {
+        public static string boottime = RTC.Month + "/" + RTC.DayOfTheMonth + "/" + RTC.Year + ", " + RTC.Hour + ":" + RTC.Minute + ":" + RTC.Second;
         protected override void BeforeRun()
         {
             VGADriverII.Initialize(VGAMode.Text90x60);
@@ -18,8 +19,17 @@ namespace FrameOS
         {
             try
             {
-                Terminal.Write(UserSystem.UserProfileSystem.CurrentUser + "@" + FileSystem.Filesystem.GetCurrentPath() + ">");
-                Shell.Shell.Run(Terminal.ReadLine());
+                Terminal.TextColor = ConsoleColor.Cyan;
+                Terminal.Write(UserSystem.UserProfileSystem.CurrentUser);
+                Terminal.TextColor = ConsoleColor.Green;
+                Terminal.Write("@" + FileSystem.Filesystem.GetCurrentPath() + "> ");
+                Terminal.TextColor = ConsoleColor.White;
+
+                // TODO fix the colours, you know what you want
+                string input = Terminal.ReadLine();
+                Terminal.TextColor = ConsoleColor.Gray;
+                Shell.Shell.Run(input);
+
                 Terminal.NewLine();
             }
             catch (Exception e)

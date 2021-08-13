@@ -7,6 +7,8 @@ namespace FrameOS.Commands
 {
     class RebootCommand : ICommand
     {
+        public string description { get => "Restart the System."; }
+
         public void Run(CommandArg[] commandArgs)
         {
             Cosmos.System.Power.Reboot();

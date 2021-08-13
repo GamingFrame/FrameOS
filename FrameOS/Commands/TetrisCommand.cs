@@ -8,6 +8,8 @@ namespace FrameOS.Commands
 {
     class TetrisCommand : ICommand
     {
+        public string description { get => "Play the tetris theme song."; }
+
         public void Run(CommandArg[] commandArgs)
         {
             AudioSystem.PlayTetris();

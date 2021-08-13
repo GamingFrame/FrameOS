@@ -9,6 +9,7 @@ namespace FrameOS.Commands
 {
     class PingCommand : ICommand
     {
+        public string description { get => "Ping a host."; }
         public void Run(CommandArg[] commandArgs)
         {
             if (commandArgs.Length != 1)

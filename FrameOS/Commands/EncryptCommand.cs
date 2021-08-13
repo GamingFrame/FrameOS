@@ -8,6 +8,7 @@ namespace FrameOS.Commands
 {
     class EncryptCommand : ICommand
     {
+        public string description { get => "Encrypt text."; }
         public void Run(CommandArg[] commandArgs)
         {
             Console.WriteLine(Encrypter.Encrypt(commandArgs[0].String));

@@ -8,6 +8,8 @@ namespace FrameOS.Commands
 {
     class WhoamiCommand : ICommand
     {
+        public string description { get => "Check as who you are logged in."; }
+
         public void Run(CommandArg[] commandArgs)
         {
             Terminal.WriteLine("Name: " + UserSystem.UserProfileSystem.CurrentUser);

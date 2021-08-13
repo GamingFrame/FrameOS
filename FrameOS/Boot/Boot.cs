@@ -75,6 +75,7 @@ namespace FrameOS.Boot
                 CommandSystem.RegisterCommand("networkinfo", new NetworkInfoCommand());
                 CommandSystem.RegisterCommand("time", new GetNetworkTimeCommand());
                 CommandSystem.RegisterCommand("ping", new PingCommand());
+                CommandSystem.RegisterCommand("sys", new SysInfoCommand());
 
 
                 //TODO fix the encryption system.

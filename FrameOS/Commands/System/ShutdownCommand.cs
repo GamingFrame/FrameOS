@@ -7,6 +7,8 @@ namespace FrameOS.Commands
 {
     class ShutdownCommand : ICommand
     {
+        public string description { get => "Shut down the OS."; }
+
         public void Run(CommandArg[] commandArgs)
         {
             Cosmos.System.Power.Shutdown();

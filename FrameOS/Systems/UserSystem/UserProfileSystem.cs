@@ -22,7 +22,14 @@ namespace FrameOS.UserSystem
 
         public static bool UserExists(string username)
         {
-            return File.Exists(@"0:\Users\" + username + @"\USERC");
+            if (Directory.Exists(@"0:\Users\" + username))
+            {
+                if (File.Exists(@"0:\Users\" + username + @"\USERC"))
+                {
+                    return true;
+                }
+            }
+            return false;
         }
 
         public static bool Authorize(string username, string password)
