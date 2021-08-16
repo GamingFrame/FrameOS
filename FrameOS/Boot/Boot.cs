@@ -77,6 +77,7 @@ namespace FrameOS.Boot
                 CommandSystem.RegisterCommand("ping", new PingCommand());
                 CommandSystem.RegisterCommand("sys", new SysInfoCommand());
                 CommandSystem.RegisterCommand("kate", new KateCommand());
+                CommandSystem.RegisterCommand("echo", new EchoCommand());
 
 
                 //TODO fix the encryption system.

@@ -18,6 +18,12 @@ namespace FrameOS.Commands
                 return;
             }
 
+            if (commandArgs[0].String.StartsWith("!"))
+            {
+                Terminal.WriteLine("File " + commandArgs[0].String + " doesn't exist");
+                return;
+            }
+
             string[] lines = Filesystem.GetFileContent(commandArgs[0].String);
 
             if(lines.Length == 0) { return; }
