@@ -132,7 +132,6 @@
 
     <ItemGroup>
       <Folder Include="Drivers\VGA\" />
-      <Folder Include="Systems\Input\" />
     </ItemGroup>
 
 </Project>

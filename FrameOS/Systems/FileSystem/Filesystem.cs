@@ -136,5 +136,15 @@ namespace FrameOS.FileSystem
 
             Directory.Delete(GetFullPath() + @"\" + folder);
         }
+
+        public static bool fileExists(string file)
+        {
+           return fs.GetFile(GetFullPath() + @"\" + file) == null;
+        }
+
+        public static void writeAllText(string file, string text)
+        {
+            File.WriteAllText(GetFullPath() + @"\" + file, text);
+        }
     }
 }
