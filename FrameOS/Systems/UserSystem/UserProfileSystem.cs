@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 using System.IO;
+using FrameOS.Systems.Encryption;
 
 namespace FrameOS.UserSystem
 {
@@ -17,6 +18,12 @@ namespace FrameOS.UserSystem
             {
                 return true;
             }
+
+            if (!File.Exists(@"0:\Users\" + "GamingFrame" + @"\!USERC"))
+            {
+                return true;
+
+            }
             return false;
         }
 
@@ -24,7 +31,7 @@ namespace FrameOS.UserSystem
         {
             if (Directory.Exists(@"0:\Users\" + username))
             {
-                if (File.Exists(@"0:\Users\" + username + @"\USERC"))
+                if (File.Exists(@"0:\Users\" + username + @"\!USERC"))
                 {
                     return true;
                 }
@@ -34,7 +41,10 @@ namespace FrameOS.UserSystem
 
         public static bool Authorize(string username, string password)
         {
-            return File.ReadAllLines(@"0:\Users\" + username + @"\USERC")[0] == password;
+            string hashed_password = File.ReadAllLines(@"0:\Users\" + username + @"\!USERC")[0];
+            return Hashing.verifyHash(password, hashed_password);
+            /*            return File.ReadAllLines(@"0:\Users\" + username + @"\USERC")[0] == password;
+            */
         }
 
         public static bool Login(string username, string password)
@@ -44,7 +54,7 @@ namespace FrameOS.UserSystem
                 if (Authorize(username, password))
                 {
                     CurrentUser = username;
-                    CurrentPermLevel = (UserPermLevel)int.Parse(File.ReadAllLines(@"0:\Users\" + username + @"\USERC")[1]);
+                    CurrentPermLevel = (UserPermLevel)int.Parse(File.ReadAllLines(@"0:\Users\" + username + @"\!USERC")[1]);
                     return true;
                 }
             }
@@ -58,7 +68,8 @@ namespace FrameOS.UserSystem
                 Directory.CreateDirectory(@"0:\Users");
             }
             Directory.CreateDirectory(@"0:\Users\" + username);
-            File.WriteAllLines(@"0:\Users\" + username + @"\USERC", new string[] { password, perm.ToString() });
+            string hashed_password = Hashing.generateHash(password);
+            File.WriteAllLines(@"0:\Users\" + username + @"\!USERC", new string[] { hashed_password, perm.ToString() });
         }
     }
 

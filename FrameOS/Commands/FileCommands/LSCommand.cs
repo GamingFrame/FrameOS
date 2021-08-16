@@ -40,7 +40,7 @@ namespace FrameOS.Commands
                     Terminal.WriteLine("File: " + files[i]);
                 }
 
-                if (!file.mName.StartsWith('.'))
+                if (!file.mName.StartsWith('!'))
                 {
                     Terminal.WriteLine("File Name: " + file.mName + "    " + file.mSize + " bytes");
                 }
