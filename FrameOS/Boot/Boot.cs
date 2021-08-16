@@ -78,9 +78,8 @@ namespace FrameOS.Boot
                 CommandSystem.RegisterCommand("sys", new SysInfoCommand());
                 CommandSystem.RegisterCommand("kate", new KateCommand());
                 CommandSystem.RegisterCommand("echo", new EchoCommand());
-
-
-                //TODO fix the encryption system.
+                CommandSystem.RegisterCommand("mv", new MvCommand());
+                CommandSystem.RegisterCommand("cp", new CpCommand());
                 CommandSystem.RegisterCommand("encrypt", new EncryptCommand());
                 CommandSystem.RegisterCommand("decrypt", new DecryptCommand());
 
