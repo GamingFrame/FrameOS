@@ -19,11 +19,6 @@ namespace FrameOS.UserSystem
                 return true;
             }
 
-            if (!File.Exists(@"0:\Users\" + "GamingFrame" + @"\!USERC"))
-            {
-                return true;
-
-            }
             return false;
         }
 
