@@ -139,6 +139,7 @@ namespace FrameOS.FileSystem
 
             return lines;
         }
+ 
 
         public static void RemoveFile(string fileName)
         {
@@ -164,12 +165,56 @@ namespace FrameOS.FileSystem
 
         public static bool fileExists(string file)
         {
-           return fs.GetFile(GetFullPath() + @"\" + file) == null;
+           return fs.GetFile(GetFullPath() + @"\" + file) != null;
         }
 
         public static void writeAllText(string file, string text)
         {
             File.WriteAllText(GetFullPath() + @"\" + file, text);
+        }
+
+        public static bool folderExists(string folder)
+        {
+            return fs.GetDirectory(GetFullPath() + @"\" + folder) != null;
+        }
+
+        public static void moveFile(string fileName, string newDestinaction)
+        {
+            if(!fileExists(fileName))
+            {
+                Terminal.WriteLine("File " + fileName + " cannot be found!");
+                return;
+            }
+
+            if (!folderExists(newDestinaction))
+            {
+                Terminal.WriteLine("Folder " + fileName + " cannot be found!");
+                return;
+            }
+
+            string[] fileContent = GetFileContent(fileName);
+            RemoveFile(fileName);
+            CreateFile(newDestinaction + @"\" + fileName);
+            writeAllText(newDestinaction + @"\" + fileName, string.Join("\n", fileContent));
+        }
+
+        public static void copyFile(string fileName, string newDestinaction)
+        {
+            if (!fileExists(fileName))
+            {
+                Terminal.WriteLine("File " + fileName + " cannot be found!");
+                return;
+            }
+
+            if (!folderExists(newDestinaction))
+            {
+                Terminal.WriteLine("Folder " + fileName + " cannot be found!");
+                return;
+            }
+
+            string[] fileContent = GetFileContent(fileName);
+            CreateFile(newDestinaction + @"\" + fileName);
+            writeAllText(newDestinaction + @"\" + fileName, string.Join("\n", fileContent));
         }
     }
 }
