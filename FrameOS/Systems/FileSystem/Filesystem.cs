@@ -22,6 +22,31 @@ namespace FrameOS.FileSystem
             try
             {
                 //fs.GetDirectoryListing(@"0:\");
+                if (!Directory.Exists(@"0:\System"))
+                {
+                    Directory.CreateDirectory(@"0:\System");
+                    Directory.CreateDirectory(@"0:\System\Environment");
+                    Directory.CreateDirectory(@"0:\System\Audio");
+                    Directory.CreateDirectory(@"0:\System\Commands");
+                }
+                if (!Directory.Exists(@"0:\httpdocs"))
+                {
+                    Directory.CreateDirectory(@"0:\httpdocs");
+                    string[] default_file = { "<!DOCTYPE html>",
+                        "<html lang=\"en\">",
+                        "<head>",
+                        "    <meta charset=\"UTF-8\">",
+                        "    <meta http-equiv=\"X-UA-Compatible\" content=\"IE=edge\">",
+                        "    <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">",
+                        "    <title>Frame OS</title>",
+                        "</head>",
+                        "<body>",
+                        "   <h1>Frame Web Server V0.1</h1>",
+                        "   <p>Web server is running! Enjoy!</p>",
+                        "</body>"};
+
+                    File.WriteAllLines(@"0:\httpdocs\index.html", default_file);
+                }
             }
             catch (Exception)
             {

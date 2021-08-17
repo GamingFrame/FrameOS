@@ -9,6 +9,7 @@ using Cosmos.System.Network.IPv4;
 using Cosmos.System.Network.IPv4.TCP;
 using Cosmos.System.Network.IPv4.UDP.DHCP;
 using Cosmos.System.Network.IPv4.UDP.DNS;
+using System.IO;
 
 namespace FrameOS.Systems.Networking
 {
@@ -27,6 +28,7 @@ namespace FrameOS.Systems.Networking
                     NetworkDevice nic = NetworkDevice.GetDeviceByName("eth0"); //get network device by name
                     IPConfig.Enable(nic, new Address(192, 168, 0, 69), new Address(255, 255, 255, 0), new Address(192, 168, 0, 1));
                     DNSConfig.Add(new Address(8, 8, 8, 8));
+                    xClient.Close();
                     return;
                 }
 
@@ -46,25 +48,83 @@ namespace FrameOS.Systems.Networking
             return NetworkConfig.CurrentConfig.Value.IPAddress.ToString();
         }
 
-        public static void StartWebServer()
+        public static void StartWebServer(bool loop)
         {
+            Cosmos.HAL.Terminal.WriteLine("Restarting server...");
             using (var xServer = new TcpListener(80))
             {
+                //if (loop)
+                //{
+                //    bool connection_closed = true;
+                //    while (true)
+                //    {
+                //        if (connection_closed)
+                //        {
+                //            connection_closed = false;
+                //            using (var _xServer = new TcpListener(80))
+                //            {
+                //                /** Start server **/
+                //                _xServer.Start();
+
+                //                /** Accept incoming TCP connection **/
+                //                var client = _xServer.AcceptTcpClient(20); //blocking
+
+                //                string[] lines = File.ReadAllLines(@"0:\httpdocs\index.html");
+
+                //                if (lines.Length == 0)
+                //                {
+                //                    client.Send(Encoding.ASCII.GetBytes("ERROR 500"));
+                //                    client.Close();
+                //                    _xServer.Stop();
+                //                    _xServer.Dispose();
+                //                    connection_closed = true;
+                //                    continue;
+                //                }
+
+                //                /** Send data **/
+                //                client.Send(Encoding.ASCII.GetBytes(string.Join("\n", lines)));
+
+                //                client.Close();
+                //                _xServer.Stop();
+                //                _xServer.Dispose();
+                //                connection_closed = true;
+                //            }
+                //        }
+
+                //    }
+                //}
+                //else
+                //{
                 /** Start server **/
+                Cosmos.HAL.Terminal.WriteLine("Started server...");
                 xServer.Start();
 
                 /** Accept incoming TCP connection **/
                 var client = xServer.AcceptTcpClient(); //blocking
+                Cosmos.HAL.Terminal.WriteLine("Connection...");
+                string[] lines = File.ReadAllLines(@"0:\httpdocs\index.html");
+
+                if (lines.Length == 0)
+                {
+                    client.Send(Encoding.ASCII.GetBytes("ERROR 500"));
+                    client.Close();
+                    client.Dispose();
+                    xServer.Dispose();
+                    return;
+                }
 
                 /** Send data **/
-                client.Send(Encoding.ASCII.GetBytes("<html>" +
-                    "<head>" +
-                    "</head>" +
-                    "<body>HELLO WORLD AAAAA</body>" +
-                    "</html>"));
+                int length = Encoding.ASCII.GetByteCount("\n\n" + string.Join("\n", lines));
+                string headers = $"HTTP/1.1 200 OK\nConnection: Close\nContent-Type: text/html\n";
+                client.Send(Encoding.ASCII.GetBytes(headers + "\n\n" + string.Join("\n", lines)));
+                Cosmos.HAL.Terminal.WriteLine("Send Page...");
 
                 client.Close();
-
+                client.Dispose();
+                xServer.Stop();
+                xServer.Dispose();
+                Cosmos.HAL.Terminal.WriteLine("Closed server: ");
+                //}
             }
         }
 
@@ -108,6 +168,11 @@ namespace FrameOS.Systems.Networking
                 tcpClient.Close();
 
                 httpresponse = Encoding.ASCII.GetString(data);
+
+                if (httpresponse.Contains("<html>"))
+                {
+                    httpresponse = "<html>" + httpresponse.Split("<html>")[1];
+                }
 
             }
             catch (Exception ex)

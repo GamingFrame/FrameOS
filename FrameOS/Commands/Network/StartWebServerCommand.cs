@@ -11,7 +11,37 @@ namespace FrameOS.Commands
         public string description { get => "Run the FRAME server."; }
         public void Run(CommandArg[] commandArgs)
         {
-            NetworkSystem.StartWebServer();
+            if (commandArgs.Length > 0)
+            {
+                if (commandArgs[0].String == "--loop")
+                {
+                    while (true)
+                    {
+                        Cosmos.HAL.Terminal.WriteLine("LOOP");
+                        NetworkSystem.StartWebServer(true);
+                        DelayCode(5000);
+                    }
+                }
+                else
+                {
+                    throw new Exception("Invalid Flag");
+                }
+            }
+            else
+            {
+                NetworkSystem.StartWebServer(false);
+            }
+        }
+        void DelayCode(double ms)
+        {
+            for (int i = 0; i < ms * 100000; i++)
+            {
+                ;
+                ;
+                ;
+                ;
+                ;
+            }
         }
     }
 }

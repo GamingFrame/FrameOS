@@ -21,6 +21,7 @@ namespace FrameOS.Commands
             Terminal.WriteLine("FrameOS");
             Terminal.TextColor = ConsoleColor.Gray;
             Terminal.WriteLine("CPU: " + CPU.GetCPUBrandString());
+            Terminal.WriteLine("CPU Uptime: " + CPU.GetCPUUptime());
             Terminal.WriteLine("Memory: " + CPU.GetAmountOfRAM() + " MB");
             Terminal.WriteLine("Used Memory: " + usedMemory + " MB");
             Terminal.WriteLine("Free Memory: " + freeMemory + " MB");
