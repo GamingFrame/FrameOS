@@ -25,7 +25,6 @@ namespace FrameOS
                 Terminal.Write("@" + FileSystem.Filesystem.GetCurrentPath() + "> ");
                 Terminal.TextColor = ConsoleColor.White;
 
-                // TODO fix the colours, you know what you want
                 string input = Terminal.ReadLine();
                 Terminal.TextColor = ConsoleColor.Gray;
                 Shell.Shell.Run(input);

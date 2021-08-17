@@ -82,6 +82,7 @@ namespace FrameOS.Boot
                 CommandSystem.RegisterCommand("cp", new CpCommand());
                 CommandSystem.RegisterCommand("encrypt", new EncryptCommand());
                 CommandSystem.RegisterCommand("decrypt", new DecryptCommand());
+                CommandSystem.RegisterCommand("test", new RTTTLCommand());
 
                 Terminal.WriteLine("Loading Terminal...");
                 // Load Terminal    
