@@ -1,4 +1,5 @@
 ﻿using Cosmos.HAL;
+using FrameOS.Systems.Logs;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -9,6 +10,7 @@ namespace FrameOS
     public class Kernel : Sys.Kernel
     {
         public static string boottime = RTC.Month + "/" + RTC.DayOfTheMonth + "/" + RTC.Year + ", " + RTC.Hour + ":" + RTC.Minute + ":" + RTC.Second;
+        public static string logFileTime = RTC.Month + "-" + RTC.DayOfTheMonth + "-" + RTC.Year + "_" + RTC.Hour + "-" + RTC.Minute + "-" + RTC.Second;
         protected override void BeforeRun()
         {
             VGADriverII.Initialize(VGAMode.Text90x60);
@@ -40,6 +42,7 @@ namespace FrameOS
                 else
                 {
                     Terminal.WriteLine("Error: " + e.Message);
+                    LogManager.Log(e.Message, LogType.Error);
                 }
             }
         }

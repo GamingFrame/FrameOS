@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Cosmos.HAL;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Text;
@@ -35,6 +36,7 @@ namespace FrameOS.Systems.Sound
                 else
                 {
                     Cosmos.System.PCSpeaker.Beep((uint)item.frequency, (uint)item.duration);
+                    DelayCode(5);
                 }
             }
         }
@@ -260,7 +262,7 @@ namespace FrameOS.Systems.Sound
 
         public static int CalculateDuration(int beatEvery, int noteDuration, bool isDotted)
         {
-            int duration = (beatEvery * 4) / noteDuration;
+            int duration = (int)(((beatEvery * 4) / noteDuration) / 1.15f);
             int prolonged = 0;
             if (isDotted)
             {

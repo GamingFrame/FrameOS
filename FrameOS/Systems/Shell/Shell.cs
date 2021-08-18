@@ -9,6 +9,7 @@ using FrameOS.Systems.Terminal;
 using FrameOS.UserSystem;
 using Sys = Cosmos.System;
 using FrameOS.Systems.Networking;
+using FrameOS.Systems.Logs;
 
 namespace FrameOS.Shell
 {
@@ -60,6 +61,7 @@ namespace FrameOS.Shell
                 else
                 {
                     Terminal.WriteLine("Error: " + e.Message);
+                    LogManager.Log(e.Message, LogType.Error);
                 }
 
             }
@@ -104,6 +106,7 @@ namespace FrameOS.Shell
         public static void ClearSlow(ConsoleColor color)
         {
             Terminal.Clear();
+            Terminal.BackColor = color;
             Console.SetCursorPosition(0, 0);
             for (int i = 0; i < 5400; i++)
             {
@@ -114,15 +117,13 @@ namespace FrameOS.Shell
 
         internal static void Crash(Exception e)
         {
-            Console.ForegroundColor = ConsoleColor.White;
-            Console.BackgroundColor = ConsoleColor.DarkGreen;
-            Shell.ClearSlow(ConsoleColor.DarkGreen);
+            ClearSlow(ConsoleColor.DarkBlue);
+            Terminal.TextColor = ConsoleColor.White;
             Terminal.WriteLine("Your PC has run into a problem and has been shut down to prevent damage to the system.");
             Terminal.WriteLine("");
             Terminal.WriteLine("Error:");
             Terminal.WriteLine(e.ToString());
             int y = Console.CursorTop;
-            Terminal.SetCursorPos((int)Math.Round(Console.WindowWidth / 2.5f), Console.WindowHeight - 2); Console.Write("@Gaming Frame - 2021");
 
             Terminal.SetCursorPos(0, y);
             Terminal.WriteLine("\nPress enter to reboot, press delete to shut down: ");

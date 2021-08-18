@@ -9,6 +9,7 @@ using FrameOS.Commands;
 using Cosmos.System.Graphics;
 using FrameOS.Systems.Networking;
 using Cosmos.HAL;
+using FrameOS.Systems.Logs;
 
 namespace FrameOS.Boot
 {
@@ -83,6 +84,7 @@ namespace FrameOS.Boot
                 CommandSystem.RegisterCommand("encrypt", new EncryptCommand());
                 CommandSystem.RegisterCommand("decrypt", new DecryptCommand());
                 CommandSystem.RegisterCommand("test", new RTTTLCommand());
+                CommandSystem.RegisterCommand("crash", new TestCrashCommand());
 
                 Terminal.WriteLine("Loading Terminal...");
                 // Load Terminal    
@@ -96,7 +98,7 @@ namespace FrameOS.Boot
                 }
                 else
                 {
-                    Terminal.WriteLine("Error: " + e.Message);
+                    LogManager.Log(e.Message, LogType.Error);
                 }
             }
 
