@@ -10,6 +10,8 @@ namespace FrameOS.Commands
     {
         public string description { get => "Show all the commands."; }
 
+        public string command => "help";
+
         public void Run(CommandArg[] commandArgs)
         {
             Dictionary<string, ICommand> commands = CommandSystem.commands;

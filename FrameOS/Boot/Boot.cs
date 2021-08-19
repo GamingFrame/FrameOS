@@ -56,35 +56,40 @@ namespace FrameOS.Boot
 
                 Terminal.WriteLine("Loading Commands...");
 
-                CommandSystem.RegisterCommand("help", new HelpCommand());
-                CommandSystem.RegisterCommand("tetris", new TetrisCommand());
-                CommandSystem.RegisterCommand("format", new FormatCommand());
-                CommandSystem.RegisterCommand("whoami", new WhoamiCommand());
-                CommandSystem.RegisterCommand("cd", new CDCommand());
-                CommandSystem.RegisterCommand("ls", new LSCommand());
-                CommandSystem.RegisterCommand("mkdir", new MKDirCommand());
-                CommandSystem.RegisterCommand("touch", new TouchCommand());
-                CommandSystem.RegisterCommand("cat", new CatCommand());
-                CommandSystem.RegisterCommand("rm", new RmCommand());
-                CommandSystem.RegisterCommand("rmdir", new RmDirCommand());
-                CommandSystem.RegisterCommand("reboot", new RebootCommand());
-                CommandSystem.RegisterCommand("shutdown", new ShutdownCommand());
-                CommandSystem.RegisterCommand("startFTP", new StartFTPCommand());
-                CommandSystem.RegisterCommand("startWeb", new StartWebServerCommand());
-                CommandSystem.RegisterCommand("wurl", new WurlCommand());
-                CommandSystem.RegisterCommand("getip", new GetIPCommand());
-                CommandSystem.RegisterCommand("networkinfo", new NetworkInfoCommand());
-                CommandSystem.RegisterCommand("time", new GetNetworkTimeCommand());
-                CommandSystem.RegisterCommand("ping", new PingCommand());
-                CommandSystem.RegisterCommand("sys", new SysInfoCommand());
-                CommandSystem.RegisterCommand("kate", new KateCommand());
-                CommandSystem.RegisterCommand("echo", new EchoCommand());
-                CommandSystem.RegisterCommand("mv", new MvCommand());
-                CommandSystem.RegisterCommand("cp", new CpCommand());
-                CommandSystem.RegisterCommand("encrypt", new EncryptCommand());
-                CommandSystem.RegisterCommand("decrypt", new DecryptCommand());
-                CommandSystem.RegisterCommand("test", new RTTTLCommand());
-                CommandSystem.RegisterCommand("crash", new TestCrashCommand());
+                CommandSystem.RegisterCommand(new HelpCommand());
+                CommandSystem.RegisterCommand(new TetrisCommand());
+                CommandSystem.RegisterCommand(new FormatCommand());
+                CommandSystem.RegisterCommand(new WhoamiCommand());
+                CommandSystem.RegisterCommand(new CDCommand());
+                CommandSystem.RegisterCommand(new LSCommand());
+                CommandSystem.RegisterCommand(new MKDirCommand());
+                CommandSystem.RegisterCommand(new TouchCommand());
+                CommandSystem.RegisterCommand(new CatCommand());
+                CommandSystem.RegisterCommand(new RmCommand());
+                CommandSystem.RegisterCommand(new RmDirCommand());
+                CommandSystem.RegisterCommand(new RebootCommand());
+                CommandSystem.RegisterCommand(new ShutdownCommand());
+                CommandSystem.RegisterCommand(new StartFTPCommand());
+                CommandSystem.RegisterCommand(new StartWebServerCommand());
+                CommandSystem.RegisterCommand(new WurlCommand());
+                CommandSystem.RegisterCommand(new GetIPCommand());
+                CommandSystem.RegisterCommand(new NetworkInfoCommand());
+                CommandSystem.RegisterCommand(new GetNetworkTimeCommand());
+                CommandSystem.RegisterCommand(new PingCommand());
+                CommandSystem.RegisterCommand(new SysInfoCommand());
+                CommandSystem.RegisterCommand(new KateCommand());
+                CommandSystem.RegisterCommand(new EchoCommand());
+                CommandSystem.RegisterCommand(new MvCommand());
+                CommandSystem.RegisterCommand(new CpCommand());
+                CommandSystem.RegisterCommand(new EncryptCommand());
+                CommandSystem.RegisterCommand(new DecryptCommand());
+                CommandSystem.RegisterCommand(new RTTTLCommand());
+                CommandSystem.RegisterCommand(new TestCrashCommand());
+                CommandSystem.RegisterCommand(new IpConfigCommand());
+                CommandSystem.RegisterCommand(new SnakeCommand());
+                CommandSystem.RegisterCommand(new TestConsoleWidthCommand());
+
+
 
                 Terminal.WriteLine("Loading Terminal...");
                 // Load Terminal    

@@ -10,6 +10,9 @@ namespace FrameOS.Commands
     class RmCommand : ICommand
     {
         public string description { get => "Remove a file."; }
+
+        public string command => "rm";
+
         public void Run(CommandArg[] commandArgs)
         {
             if(commandArgs.Length != 1)

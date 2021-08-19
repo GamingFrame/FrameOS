@@ -10,6 +10,8 @@ namespace FrameOS.Commands
     {
         public string description { get => "Copy a file to another folder"; }
 
+        public string command => "cp";
+
         public void Run(CommandArg[] commandArgs)
         {
             if(commandArgs.Length != 2)

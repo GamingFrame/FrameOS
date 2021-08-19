@@ -9,6 +9,9 @@ namespace FrameOS.Commands
     class CDCommand : ICommand
     {
         public string description { get => "Go to a folder."; }
+
+        public string command => "cd";
+
         public void Run(CommandArg[] commandArgs)
         {
             string currentPath = FileSystem.Filesystem.GetCurrentPath();

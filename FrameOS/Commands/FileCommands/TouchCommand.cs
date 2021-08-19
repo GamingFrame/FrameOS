@@ -10,6 +10,9 @@ namespace FrameOS.Commands
     class TouchCommand : ICommand
     {
         public string description { get => "Make a file."; }
+
+        public string command => "touch";
+
         public void Run(CommandArg[] commandArgs)
         {
             if(commandArgs.Length != 1)

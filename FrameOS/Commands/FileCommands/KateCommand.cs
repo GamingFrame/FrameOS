@@ -11,6 +11,8 @@ namespace FrameOS.Commands
     {
         public string description { get => "Editing a file on the system"; }
 
+        public string command => "kate";
+
         public void Run(CommandArg[] commandArgs)
         {
             if(commandArgs.Length != 1)
@@ -18,8 +20,9 @@ namespace FrameOS.Commands
                 Terminal.WriteLine("Invalid arguments. Use: kate <filename>");
                 return;
             }
-
+            VGADriverII.SetMode(VGAMode.Text80x25);
             Kate.Startkate(commandArgs[0].String);
+            VGADriverII.SetMode(VGAMode.Text90x60);
         }
     }
 }

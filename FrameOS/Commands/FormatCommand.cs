@@ -11,6 +11,9 @@ namespace FrameOS.Commands
     class FormatCommand : ICommand
     {
         public string description { get => "Format a drive."; }
+
+        public string command => "format";
+
         public void Run(CommandArg[] commandArgs)
         {
             if (commandArgs.Length != 1)

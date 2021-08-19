@@ -12,6 +12,9 @@ namespace FrameOS.Commands
     class LSCommand : ICommand
     {
         public string description { get => "List all files in the folder."; }
+
+        public string command => "ls";
+
         public void Run(CommandArg[] commandArgs)
         {
             string fullPath = Filesystem.GetFullPath();
@@ -25,7 +28,8 @@ namespace FrameOS.Commands
                     Terminal.WriteLine("Folder: " + directories[i]);
                 }else
                 {
-                    Terminal.WriteLine("Directory name: " + directory.mName);
+                    Terminal.TextColor = ConsoleColor.Blue;
+                    Terminal.WriteLine(directory.mName);
                 }
             }
 
@@ -42,7 +46,8 @@ namespace FrameOS.Commands
 
                 if (!file.mName.StartsWith('!'))
                 {
-                    Terminal.WriteLine("File Name: " + file.mName + "    " + file.mSize + " bytes");
+                    Terminal.TextColor = ConsoleColor.Yellow;
+                    Terminal.WriteLine(file.mName + "    " + file.mSize + " bytes");
                 }
             }
         }

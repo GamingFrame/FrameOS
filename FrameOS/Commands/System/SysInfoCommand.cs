@@ -12,6 +12,8 @@ namespace FrameOS.Commands
     {
         public string description => "See the system info.";
 
+        public string command => "sysinfo";
+
         public void Run(CommandArg[] commandArgs)
         {
             uint freeMemory = MemoryManager.GetFreeMemory();

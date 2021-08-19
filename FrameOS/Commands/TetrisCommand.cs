@@ -10,6 +10,8 @@ namespace FrameOS.Commands
     {
         public string description { get => "Play the tetris theme song."; }
 
+        public string command => "tetris";
+
         public void Run(CommandArg[] commandArgs)
         {
             AudioSystem.PlayTetris();

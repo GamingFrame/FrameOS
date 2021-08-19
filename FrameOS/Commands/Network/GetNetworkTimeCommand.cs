@@ -10,6 +10,9 @@ namespace FrameOS.Commands
     class GetNetworkTimeCommand : ICommand
     {
         public string description { get => "Get the time from time.windows.com"; }
+
+        public string command => "time";
+
         public void Run(CommandArg[] commandArgs)
         {
             NTPClient client = new NTPClient();

@@ -10,6 +10,8 @@ namespace FrameOS.Commands
     {
         public string description { get => "Move the file to a other destinacion"; }
 
+        public string command => "mv";
+
         public void Run(CommandArg[] commandArgs)
         {
             if(commandArgs.Length != 2)

@@ -23,11 +23,21 @@ namespace FrameOS.Systems.CommandSystem
             return null;
         }
 
-        public static void RegisterCommand(string command, ICommand _ICommand)
+        public static void RegisterCommand(ICommand _ICommand)
         {
-            command = command.ToLower().Trim();
+            string command = _ICommand.command.ToLower().Trim();
 
             commands.Add(command, _ICommand);
+        }
+
+        public static void RegisterCommands(ICommand[] commandList)
+        {
+            for (int i = 0; i < commandList.Length; i++)
+            {
+                string command = commandList[i].command.ToLower().Trim();
+
+                commands.Add(command, commandList[i]);
+            }
         }
     }
 }

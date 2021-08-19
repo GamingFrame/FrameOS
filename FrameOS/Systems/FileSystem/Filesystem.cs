@@ -28,6 +28,7 @@ namespace FrameOS.FileSystem
                     Directory.CreateDirectory(@"0:\System\Environment");
                     Directory.CreateDirectory(@"0:\System\Audio");
                     Directory.CreateDirectory(@"0:\System\Commands");
+                    Directory.CreateDirectory(@"0:\System\Logs");
                 }
                 if (!Directory.Exists(@"0:\httpdocs"))
                 {

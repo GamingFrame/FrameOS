@@ -10,6 +10,9 @@ namespace FrameOS.Commands
     class CatCommand : ICommand
     {
         public string description { get => "Read the contents of a file."; }
+
+        public string command => "cat";
+
         public void Run(CommandArg[] commandArgs)
         {
             if(commandArgs.Length != 1)

@@ -10,6 +10,8 @@ namespace FrameOS.Commands
     {
         public string description => "System command to test the Crash Catch System";
 
+        public string command => "crash";
+
         public void Run(CommandArg[] commandArgs)
         {
             LogManager.Log("Testing Crash System Log", LogType.Error);

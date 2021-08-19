@@ -9,6 +9,8 @@ namespace FrameOS.Commands
     {
         public string description { get => "Restart the System."; }
 
+        public string command => "reboot";
+
         public void Run(CommandArg[] commandArgs)
         {
             Cosmos.System.Power.Reboot();

@@ -10,6 +10,8 @@ namespace FrameOS.Commands
     {
         public string description { get => "Check as who you are logged in."; }
 
+        public string command => "whoami";
+
         public void Run(CommandArg[] commandArgs)
         {
             Terminal.WriteLine("Name: " + UserSystem.UserProfileSystem.CurrentUser);

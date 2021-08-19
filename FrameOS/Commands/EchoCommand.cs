@@ -9,6 +9,8 @@ namespace FrameOS.Commands
     {
         public string description => "Echo some text";
 
+        public string command => "echo";
+
         public void Run(CommandArg[] commandArgs)
         {
             Cosmos.HAL.Terminal.WriteLine(commandArgs[0].String);

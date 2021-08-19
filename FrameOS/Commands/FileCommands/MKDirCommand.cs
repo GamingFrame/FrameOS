@@ -10,6 +10,9 @@ namespace FrameOS.Commands
     class MKDirCommand : ICommand
     {
         public string description { get => "Make a directory."; }
+
+        public string command => "mkdir";
+
         public void Run(CommandArg[] commandArgs)
         {
             if (commandArgs.Length != 1)

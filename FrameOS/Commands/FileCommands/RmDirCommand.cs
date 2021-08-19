@@ -10,6 +10,9 @@ namespace FrameOS.Commands
     class RmDirCommand : ICommand
     {
         public string description { get => "Remove a directory."; }
+
+        public string command => "rmdir";
+
         public void Run(CommandArg[] commandArgs)
         {
             if(commandArgs.Length != 1)

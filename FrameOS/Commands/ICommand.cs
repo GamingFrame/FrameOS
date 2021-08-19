@@ -9,6 +9,8 @@ namespace FrameOS.Commands
     {
         string description { get; }
 
+        string command { get; }
+
         void Run(CommandArg[] commandArgs);
     }
 }
